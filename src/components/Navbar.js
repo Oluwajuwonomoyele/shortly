@@ -12,9 +12,9 @@ export default function Navbar({openNav, setOpenNav}) {
               </div>
 
               <ul className='hidden lg:flex items-center gap-8 text-neutral-grayish-violet'>
-                <li className='cursor-pointer'>Features</li>
-                <li className='cursor-pointer'>Pricing</li>
-                <li className='cursor-pointer'>Resources</li>
+                <li className='cursor-pointer hover:text-neutral-very-dark-blue transition-all duration-200 ease-linear'>Features</li>
+                <li className='cursor-pointer hover:text-neutral-very-dark-blue transition-all duration-200 ease-linear'>Pricing</li>
+                <li className='cursor-pointer hover:text-neutral-very-dark-blue transition-all duration-200 ease-linear'>Resources</li>
               </ul>
             </div>
 
@@ -22,8 +22,8 @@ export default function Navbar({openNav, setOpenNav}) {
                 { openNav ? <HiX size={35} /> : <HiMenu size={35} /> }
             </div>
             <div className='hidden lg:flex items-center gap-8'>
-              <p className='text-neutral-grayish-violet cursor-pointer'>Login</p>
-              <button className='bg-primary-cyan py-2 px-8 rounded-full cursor-pointer text-white'>Sign Up</button>
+              <p className='text-neutral-grayish-violet cursor-pointer hover:text-neutral-very-dark-blue transition-all duration-200 ease-linear'>Login</p>
+              <button className='bg-primary-cyan py-2 px-8 rounded-full cursor-pointer text-white hover:opacity-70 transition-all duration-200 ease-linear'>Sign Up</button>
             </div>
         </div>
     </header>

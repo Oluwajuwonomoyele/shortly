@@ -46,3 +46,6 @@
     background-size: contain;
   }
 }
+.error {
+  @apply border border-secondary-red text-secondary-red placeholder:text-secondary-red
+}
