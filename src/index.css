@@ -1,13 +1,48 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+@layer base {
+  html {
+    @apply scroll-smooth
+  }
+  body {
+    @apply font-poppins text-[18px]
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+#form {
+  background-image: url(./images/bg-shorten-mobile.svg);
+  background-repeat: no-repeat;
+  background-size: 220px;
+  background-position: 120% 0;
+}
+
+#booster {
+  background-image: url(./images/bg-boost-mobile.svg);
+  background-repeat: no-repeat;
+  background-position: 0 50%;  
+}
+@media screen and (min-width: 425px) {
+  #booster {
+    background-size: 400px;
+    background-position: 100% 50%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  #form {
+    background-image: url(./images/bg-shorten-desktop.svg);
+    background-size: cover;
+    background-position: 0 0;
+  }
+  #booster {
+    background-image: url(./images/bg-boost-desktop.svg);
+    background-size: contain;
+  }
 }
