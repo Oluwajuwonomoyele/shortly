@@ -5,9 +5,6 @@
 @tailwind components;
 
 @layer base {
-  html {
-    @apply scroll-smooth
-  }
   body {
     @apply font-poppins text-[18px]
   }
