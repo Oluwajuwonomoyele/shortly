@@ -1,10 +1,19 @@
-import React, { useState } from 'react'
 
-export default function Links({data}) {
+export default function Links({data, setLinks}) {
 
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text)
-    alert('link copied')
+  const copyToClipboard = (data) => {
+    navigator.clipboard.writeText(data.short_link)
+    setLinks( prevState => {
+      return prevState.map(linkDet => {
+        if( linkDet.code === data.code){
+          return {...linkDet, copied: true}
+        }else {
+          return linkDet
+        }
+      })
+    })
+
+    console.log(data)
   }
 
 
@@ -17,8 +26,7 @@ export default function Links({data}) {
                <hr className='lg:hidden'/>
                <div className='px-4 flex flex-col gap-3 lg:flex-row lg:gap-8 lg:items-center'>
                  <p className='text-primary-cyan'>{link.short_link}</p>
-                 <button className='py-2 lg:px-8
-                 bg-primary-cyan w-full rounded-md text-white cursor-pointer text-base hover:opacity-75 transition-all duration-200 ease-linear border-none' onClick={() => copyToClipboard(link.short_link)}>Copy</button>
+                 <button className={ link.copied ? 'py-2 lg:px-8 bg-primary-dark-violet w-full rounded-md text-white cursor-pointer text-base transition-all duration-200 ease-linear border-none': 'py-2 lg:px-8 bg-primary-cyan w-full rounded-md text-white cursor-pointer text-base transition-all duration-200 ease-linear border-none'} onClick={() => copyToClipboard(link)}>{ link.copied ? 'Copied!' : 'Copy' }</button>
                </div>
              </div>
             ))

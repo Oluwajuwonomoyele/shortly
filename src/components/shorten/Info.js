@@ -7,11 +7,11 @@ import Links from './Links';
 
 export default function Info() {
     const [links, setLinks] = useState([])
-
+    
   return (
     <section className='relative bg-neutral-gray bg-opacity-20'>
         <Shorten setLinks={setLinks}/>
-        <Links data={links}/>
+        <Links data={links} setLinks={setLinks}/>
         <div className='container mx-auto px-4 lg:px-8 pt-28 py-8 text-center'>
             <div className='flex flex-col gap-4 md:max-w-[520px] md:mx-auto'>
                 <h1 className='text-neutral-very-dark-violet text-2xl font-bold'>Advanced Statistics</h1>
