@@ -12,8 +12,6 @@ export default function Links({data, setLinks}) {
         }
       })
     })
-
-    console.log(data)
   }
 
 
