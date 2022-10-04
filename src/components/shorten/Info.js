@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Shorten from './Shorten';
 import brand from '../../images/icon-brand-recognition.svg';
 import record from '../../images/icon-detailed-records.svg';
 import customizable from '../../images/icon-fully-customizable.svg';
 import Links from './Links';
+import { useAuthContext } from '../../hooks/useAuthContext'
+import { useCollection } from "../../hooks/useCollection"
 
 export default function Info() {
-    const [links, setLinks] = useState([])
+    const { user } = useAuthContext()
+    const { documents, error } = useCollection('links')
     
   return (
     <section className='relative bg-neutral-gray bg-opacity-20'>
-        <Shorten setLinks={setLinks}/>
-        <Links data={links} setLinks={setLinks}/>
+        <Shorten />
+        {!error ? <Links data={documents} /> : <p>{error}</p>}
         <div className='container mx-auto px-4 lg:px-8 pt-28 py-8 text-center'>
             <div className='flex flex-col gap-4 md:max-w-[520px] md:mx-auto'>
                 <h1 className='text-neutral-very-dark-violet text-2xl font-bold'>Advanced Statistics</h1>

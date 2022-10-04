@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 export default function Navbar({openNav, setOpenNav}) {
   return (
     <header className='bg-white w-full'>
-        <div className='container mx-auto px-4 md:px-8 py-6 flex justify-between items-center'>
+        <div className='container mx-auto px-4 md:px-8 py-4 flex justify-between items-center text-base'>
             <div className='flex gap-8 items-center'>
               <Link to='/' className='cursor-pointer'>
                   <img src={logo} alt="logo" />

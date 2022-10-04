@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
 import { ImSpinner2 } from 'react-icons/im';
+import { useAuthContext } from '../../hooks/useAuthContext'
+import { useNavigate } from 'react-router-dom';
+import { useFirestore } from '../../hooks/useFirestore';
 
-export default function Shorten({setLinks}) {
+export default function Shorten() {
   const [err, setErr] = useState(null);
   const [isPending, setIsPending] = useState(false)
   const [isValid, setIsValid] = useState(true)
   const [link, setLink] = useState('')
+  const { user } = useAuthContext()
+  const navigate = useNavigate()
+  const { addDocument } = useFirestore('links')
 
   const handleChange = (e) => {
     setLink(e.target.value)
@@ -16,24 +22,30 @@ export default function Shorten({setLinks}) {
     e.preventDefault();
 
     const submitLink = async (linkData) => {
-      setIsPending(true)
-      try {
-          const res = await fetch(`https://api.shrtco.de/v2/shorten?url=${linkData}`, { method: 'POST'})
-          if(!res.ok){
-            throw new Error('Please enter a valid url');
-          }
-          const data = await res.json()
-          setIsPending(false)
-          setErr(null)
-          setIsValid(true)
-          setLink('')
-          setLinks(prevLinks => [...prevLinks, {...data.result, copied: false}])
-          console.log('Link shortened')
-      } catch (error) {
-          setIsPending(false)
-          setErr(error.message)
-          console.log('Invalid URL')
-          setIsValid(false)
+      if(user){
+        setIsPending(true)
+        try {
+            const res = await fetch(`https://api.shrtco.de/v2/shorten?url=${linkData}`, { method: 'POST'})
+            if(!res.ok){
+              throw new Error('Please enter a valid url');
+            }
+            const data = await res.json()
+            if(user){
+              addDocument({code: data.result.code, shortLink: data.result.short_link, originalLink: data.result.original_link, copied: false, uid: user.id})
+            }
+            setIsPending(false)
+            setErr(null)
+            setIsValid(true)
+            setLink('')
+            console.log('Link shortened')
+        } catch (error) {
+            setIsPending(false)
+            setErr(error.message)
+            console.log('Invalid URL')
+            setIsValid(false)
+        }
+      }else {
+        navigate('/signin')
       }
   }
 
