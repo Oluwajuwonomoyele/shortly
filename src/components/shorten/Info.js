@@ -1,21 +1,59 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Shorten from './Shorten';
 import brand from '../../images/icon-brand-recognition.svg';
 import record from '../../images/icon-detailed-records.svg';
 import customizable from '../../images/icon-fully-customizable.svg';
 import Links from './Links';
 import { useAuthContext } from '../../hooks/useAuthContext'
-import { useCollection } from "../../hooks/useCollection"
+import { store } from '../../firestore/config'
+
 
 export default function Info() {
     const { user } = useAuthContext()
-    const { documents, error } = useCollection('links')
+    const [ error, setError ] = useState(null)
+    const [isPending, setIsPending] = useState(false)
+    const [documents, setDocuments] = useState([])
+
+    useEffect(() => {
+        setDocuments([])
+        let ref = store.collection('links')
+
+        if(user){
+            setIsPending(true)
+            ref = store.collection('links').where('uid', '==', user.uid)
+        }
+
+        const unsub = ref.onSnapshot(snapshot => {
+            let result = []
+            if(user !== null){
+                snapshot.docs.forEach(doc => {
+                    result.push({...doc.data(), id: doc.id})
+                })
+                setDocuments(result)
+                setError(null)
+                setIsPending(false)
+            }else {
+                setDocuments([])
+                setIsPending(false)
+                setError(null)
+            }    
+        }, (error) => {
+            console.log(error)
+            setError('Could not fetch data')
+        })
+
+        return () => unsub()
+        
+    }, [user])
+    
     
   return (
     <section className='relative bg-neutral-gray bg-opacity-20'>
         <Shorten />
-        {!error ? <Links data={documents} /> : <p>{error}</p>}
-        <div className='container mx-auto px-4 lg:px-8 pt-28 py-8 text-center'>
+        { !error ? <Links data={documents} pending={isPending}/> : <div className='w-full text-center text-red-600'>
+            <p>{error}</p>
+        </div> }
+        <div className='container mx-auto px-4 lg:px-8 pt-18 py-8 text-center'>
             <div className='flex flex-col gap-4 md:max-w-[520px] md:mx-auto'>
                 <h1 className='text-neutral-very-dark-violet text-2xl font-bold'>Advanced Statistics</h1>
                 <p className='text-neutral-grayish-violet'>Track how your links are performing across the web with our advanced statistics dashboard. </p>

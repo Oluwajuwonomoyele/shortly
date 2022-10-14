@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AiOutlineGoogle } from 'react-icons/ai';
 import { FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
+import {ImSpinner2} from 'react-icons/im'
 import { useSignUp } from '../hooks/useSignUp';
 import { useState } from 'react';
 
@@ -28,8 +29,8 @@ export default function SignUp() {
                 Password
                 <input type="password" className='border border-primary-dark-violet rounded focus:outline-none px-2 py-1' value={password} onChange={(e) => {setPassword(e.target.value)}}/>
               </label>
-              <button type="submit" className='flex justify-center w-full bg-primary-cyan text-white py-2 rounded-lg cursor-pointer border-2 border-primary-cyan hover:text-primary-cyan hover:bg-white transition-all ease-linear duration-200'>SIGN UP</button>
-              { error && <p>{error}</p>}
+              { isPending ? <button type="submit" className='flex justify-center w-full bg-primary-cyan text-white py-2 rounded-lg cursor-pointer mb-1 border-2 border-primary-cyan transition-all ease-linear duration-200' disabled><ImSpinner2 size={22} className='animate-spin'/></button> : <button type="submit" className='flex justify-center w-full bg-primary-cyan text-white py-2 rounded-lg cursor-pointer mb-1 border-2 border-primary-cyan hover:text-primary-cyan hover:bg-white transition-all ease-linear duration-200'>SIGN UP</button>}
+              { error && <p className='text-center text-red-600'>{error}</p>}
             </form>
             <div className='bg-neutral-grayish-violet h-[1px] text-center rounded-lg relative mb-8'>
               <p className='p-1 absolute inset-x-0 -top-4 w-[50px] mx-auto border border-neutral-grayish-violet bg-white text-base text-neutral-grayish-violet'>OR</p>

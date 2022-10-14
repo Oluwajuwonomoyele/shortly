@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AiOutlineGoogle } from 'react-icons/ai';
 import { FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
+import {ImSpinner2} from 'react-icons/im'
 import { useState } from 'react';
 import { useLogin } from '../hooks/useLogin'
 
@@ -24,18 +25,15 @@ export default function SignIn() {
                 Email
                 <input type="email" className='border border-primary-dark-violet rounded focus:outline-none px-2 py-1' onChange={(e) => {setEmail(e.target.value)}} value={email}/>
               </label>
-              <label className='flex flex-col gap-1 mb-1'>
+              <label className='flex flex-col gap-1 mb-4'>
                 Password
                 <input type="password" className='border border-primary-dark-violet rounded focus:outline-none px-2 py-1' onChange={(e) => {setPassword(e.target.value)}} value={password}/>
               </label>
-              <label className='flex gap-2 items-center mb-4'>
-                <input type="checkbox" className="appearance-none bg-white border rounded border-black shadow p-2 relative checked:bg-primary-cyan checked:border-primary-cyan checked:text-white checked:after:content-['\2714'] checked:after:-top-[2px] checked:after:absolute checked:after:inset-x-0 checked:after:text-base"/>
-                Remember Me?
-              </label>
-              <button type="submit" className='flex justify-center w-full bg-primary-cyan text-white py-2 rounded-lg cursor-pointer mb-1 border-2 border-primary-cyan hover:text-primary-cyan hover:bg-white transition-all ease-linear duration-200'>LOGIN</button>
+              { isPending ? <button type="submit" className='flex justify-center w-full bg-primary-cyan text-white py-2 rounded-lg cursor-pointer mb-1 border-2 border-primary-cyan transition-all ease-linear duration-200' disabled><ImSpinner2 size={22} className='animate-spin'/></button> : <button type="submit" className='flex justify-center w-full bg-primary-cyan text-white py-2 rounded-lg cursor-pointer mb-1 border-2 border-primary-cyan hover:text-primary-cyan hover:bg-white transition-all ease-linear duration-200'>LOGIN</button>}
               <div className='w-full flex justify-end hover:underline'>
                 <p className='opacity-70 hover:underline'>Forgot Password?</p>
               </div>
+              { error && <p className='text-center text-red-600'>{error}</p>}
             </form>
             <div className='bg-neutral-grayish-violet h-[1px] text-center rounded-lg relative mb-8'>
               <p className='p-1 absolute inset-x-0 -top-4 w-[50px] mx-auto border border-neutral-grayish-violet bg-white text-base text-neutral-grayish-violet'>OR</p>

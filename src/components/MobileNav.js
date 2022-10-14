@@ -5,7 +5,7 @@ import { useLogout } from '../hooks/useLogout';
 
 export default function MobileNav({openNav, setOpenNav}) {
   const { user } = useAuthContext();
-  const { logout, isPending } = useLogout()
+  const { logout } = useLogout()
 
   const handleLogOut = () => {
     logout()

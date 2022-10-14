@@ -30,9 +30,7 @@ export default function Shorten() {
               throw new Error('Please enter a valid url');
             }
             const data = await res.json()
-            if(user){
-              addDocument({code: data.result.code, shortLink: data.result.short_link, originalLink: data.result.original_link, copied: false, uid: user.id})
-            }
+            addDocument({code: data.result.code, shortLink: data.result.short_link, originalLink: data.result.original_link, copied: false, uid: user.uid})
             setIsPending(false)
             setErr(null)
             setIsValid(true)
@@ -44,7 +42,7 @@ export default function Shorten() {
             console.log('Invalid URL')
             setIsValid(false)
         }
-      }else {
+      } else {
         navigate('/signin')
       }
   }
