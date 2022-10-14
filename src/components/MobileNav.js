@@ -13,7 +13,7 @@ export default function MobileNav({openNav, setOpenNav}) {
   }
 
   return (
-    <section className={ openNav ? 'fixed bg-primary-dark-violet w-[90%] mx-auto inset-x-0 z-10 rounded-lg transition-all ease-linear duration-300 mt-8' : 'fixed bg-primary-dark-violet w-[90%] scale-0 mx-auto inset-x-0 z-10 rounded-lg transition-all ease-linear duration-300 mt-8'}>
+    <section className={ openNav ? 'fixed bg-primary-dark-violet w-[90%] mx-auto inset-x-0 z-50 rounded-lg transition-all ease-linear duration-300 mt-8' : 'fixed bg-primary-dark-violet w-[90%] scale-0 mx-auto inset-x-0 z-10 rounded-lg transition-all ease-linear duration-300 mt-8'}>
         <div className='py-8 md:py-12 px-4 text-center flex flex-col gap-8'>
             <div className='flex flex-col gap-6 text-white'>
                 <h3>Features</h3>
